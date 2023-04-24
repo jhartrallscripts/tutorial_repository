@@ -23,6 +23,7 @@ echo "Sorted branches are as follows: $sorted_branches"
 
 # Get the name of the latest release branch
 latest_branch=`echo "$sorted_branches" | head -n 1 | sed 's/origin\///g'`
+echo "The latest branch is $latest_branch"
 
 # output the name of the latest release branch.
 =======

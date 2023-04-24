@@ -20,7 +20,7 @@ jobs:
                   git config --global user.email "jack.harter@allscrips.com"
                   git config --global user.name "jhartrallscripts"
 
-            - name: 🔍 Find the other release branch
+            - name: 🔍 Find another release branch, if it exists
               id: find_another_release_branch
               run: ./.github/scripts/find_another_release_branch01.sh
 

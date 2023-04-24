@@ -1,4 +1,4 @@
-name: ⏩ Merge Release into Develop
+name: ⏩ Merge Release into Release Branches + Develop
 
 on:
   push:
@@ -27,7 +27,7 @@ jobs:
             - name: Merge release branch into the other release branch
               if: steps.find_another_release_branch.outputs.branch_name != ''
               run: |
-                  git checkout ${{ steps.find_another_release_branch.outputs.branch_name }}
+                  git checkout ${{ steps.find_another_release_branch.outputs.latest_branch_name }}
                   git merge --no-ff --no-edit release/${{ github.ref_name }}
                   git push
 

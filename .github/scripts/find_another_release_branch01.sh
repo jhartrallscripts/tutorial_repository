@@ -12,3 +12,17 @@ echo "::set-output name=current_branch::$current_branch"
 # The date is expected to be in the format YYYY-MM-DD.
 branches=`git branch -r --sort=-committerdate | grep -E "origin/release/[0-9]{4}-[0-9]{2}-[0-9]{2}"`
 echo "::set-output name=branches::$branches"
+
+# if the current branch is has an earlier date in its name than the latest release branch, then it is not the latest release branch.
+# In this case, we want to output the name of the latest release branch.
+# If the current branch is the latest release branch, then we want to output an empty string.
+
+latest_branch=`echo "$branches" | head -n 1 | sed -e 's/origin\///'`
+echo "::set-output name=latest_branch::$latest_branch"
+
+# output the name of the latest release branch.
+if [[ "$current_branch" != "$latest_branch" ]]; then
+    echo "::set-output name=latest_branch::$latest_branch"
+else
+    echo "::set-output name=latest_branch::"
+fi

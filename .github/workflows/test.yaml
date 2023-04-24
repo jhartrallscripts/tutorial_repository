@@ -24,14 +24,14 @@ jobs:
               id: find_another_release_branch
               run: ./.github/scripts/find_another_release_branch01.sh
 
-            - name: 🛣️ Merge release branch into the other release branch
+            - name: 🛣️ 🤠 Merge release branch into the other release branch
               if: steps.find_another_release_branch.outputs.latest_branch != ''
               run: |
                   git checkout ${{ steps.find_another_release_branch.outputs.latest_branch }}
                   git merge --no-ff --no-edit ${{ github.ref_name }}
                   git push
 
-            - name: 🛣️ Merge Release into Develop
+            - name: 🛣️ 😎 Merge Release into Develop
               run: |
                   git checkout develop
                   git merge --no-ff --no-edit ${{ github.ref_name }}

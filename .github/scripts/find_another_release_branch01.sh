@@ -13,6 +13,15 @@ echo "::set-output name=current_branch::$current_branch"
 branches=`git branch -r --sort=-committerdate | grep -E "origin/release/[0-9]{4}-[0-9]{2}-[0-9]{2}"`
 echo "::set-output name=branches::$branches"
 
+# if the current branch is has an earlier date in its name than the latest release branch, then it is not the latest release branch.
+# In this case, we want to output the name of the latest release branch.
+# If the current branch is the latest release branch, then we want to output an empty string.
+
+latest_branch=`echo "$branches" | head -n 1 | sed -e 's/origin\///'`
+echo "::set-output name=latest_branch::$latest_branch"
+
+# output the name of the latest release branch.
+=======
 # Sort the branches from newest to oldest per the date field in their name.
 sorted_branches=`echo "$branches" | sort -r`
 echo "::set-output name=sorted_branches::$sorted_branches"
@@ -22,17 +31,9 @@ latest_branch=`echo "$sorted_branches" | head -n 1 | sed -e 's/origin\///'`
 echo "::set-output name=latest_branch::$latest_branch"
 
 # Check if the current branch is the latest branch.
+
 if [[ "$current_branch" != "$latest_branch" ]]; then
     echo "::set-output name=latest_branch::$latest_branch"
 else
     echo "::set-output name=latest_branch::"
 fi
-
-# If the current branch is the latest branch, echo a message.
-if [[ "$current_branch" == "$latest_branch" ]]; then
-    echo "The current branch is the latest release branch."
-fi
-
-
-
-exit 0

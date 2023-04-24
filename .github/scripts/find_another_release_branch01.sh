@@ -27,4 +27,5 @@ else
     echo "::set-output name=latest_branch::"
 fi
 
+# Good work, go have a beer:
 exit 0

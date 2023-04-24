@@ -4,6 +4,9 @@
 # If there is a later release branch, then the current branch is not the latest release branch.
 # If there is not a later release branch, then the current branch is the latest release branch.
 
+# fetch the latest changes from the remote repository.
+git fetch
+
 # Confirm the name of the current branch.
 current_branch=`git rev-parse --abbrev-ref HEAD`
 echo "::set-output name=current_branch::$current_branch"

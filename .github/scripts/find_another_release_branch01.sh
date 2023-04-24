@@ -26,3 +26,5 @@ if [[ "$current_branch" != "$latest_branch" ]]; then
 else
     echo "::set-output name=latest_branch::"
 fi
+
+exit 0

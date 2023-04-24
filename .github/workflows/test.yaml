@@ -25,7 +25,7 @@ jobs:
               run: ./.github/scripts/find_another_release_branch01.sh
 
             - name: 🛣️ Merge release branch into the other release branch
-              if: steps.find_another_release_branch.outputs.branch_name != ''
+              if: steps.find_another_release_branch.outputs.latest_branch_name != ''
               run: |
                   git checkout ${{ steps.find_another_release_branch.outputs.latest_branch_name }}
                   git merge --no-ff --no-edit ${{ github.ref_name }}

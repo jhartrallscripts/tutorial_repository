@@ -16,11 +16,8 @@ echo "The current branch is $current_branch"
 branches=`git branch -r --sort=-committerdate | grep -E "origin/release/[0-9]{4}-[0-9]{2}-[0-9]{2}"`
 echo "Extant branches are as follows: $branches"
 
-# if the current branch is has an earlier date in its name than the latest release branch, then it is not the latest release branch.
-# In this case, we want to output the name of the latest release branch.
-# If the current branch is the latest release branch, then we want to output an empty string.
-
-latest_branch=`echo "$branches" | head -n 1 | sed -e 's/origin\///'`
+# sort the list of branches by date number in the branch name.
+latest_branch=`echo "$branches" | head -n 1 | sed 's/origin\///g'`
 echo "The latest branch is $latest_branch"
 
 # output the name of the latest release branch.

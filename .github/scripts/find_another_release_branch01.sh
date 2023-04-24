@@ -13,8 +13,26 @@ echo "::set-output name=current_branch::$current_branch"
 branches=`git branch -r --sort=-committerdate | grep -E "origin/release/[0-9]{4}-[0-9]{2}-[0-9]{2}"`
 echo "::set-output name=branches::$branches"
 
-# extract the date from the each name and sort the dates in descending order.
-# The latest date will be the first one in the list.
-dates=`echo "$branches" | sed -e 's/origin\/release\///' | sort -r`
-echo "::set-output name=dates::$dates"
+# Sort the branches from newest to oldest per the date field in their name.
+sorted_branches=`echo "$branches" | sort -r`
+echo "::set-output name=sorted_branches::$sorted_branches"
 
+# Set a variable for the latest branch.
+latest_branch=`echo "$sorted_branches" | head -n 1 | sed -e 's/origin\///'`
+echo "::set-output name=latest_branch::$latest_branch"
+
+# Check if the current branch is the latest branch.
+if [[ "$current_branch" != "$latest_branch" ]]; then
+    echo "::set-output name=latest_branch::$latest_branch"
+else
+    echo "::set-output name=latest_branch::"
+fi
+
+# If the current branch is the latest branch, echo a message.
+if [[ "$current_branch" == "$latest_branch" ]]; then
+    echo "The current branch is the latest release branch."
+fi
+
+
+
+exit 0

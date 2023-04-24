@@ -12,3 +12,9 @@ echo "::set-output name=current_branch::$current_branch"
 # The date is expected to be in the format YYYY-MM-DD.
 branches=`git branch -r --sort=-committerdate | grep -E "origin/release/[0-9]{4}-[0-9]{2}-[0-9]{2}"`
 echo "::set-output name=branches::$branches"
+
+# extract the date from the each name and sort the dates in descending order.
+# The latest date will be the first one in the list.
+dates=`echo "$branches" | sed -e 's/origin\/release\///' | sort -r`
+echo "::set-output name=dates::$dates"
+

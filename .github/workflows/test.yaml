@@ -15,23 +15,23 @@ jobs:
                   token: ${{ secrets.GITHUB_TOKEN }}
                   fetch-depth: 0
 
-            - name: setup git
+            - name: 🆙 Setup git
               run: |
                   git config --global user.email "github-actions[bot]@users.noreply.github.com"
                   git config --global user.name "github-actions[bot]"
 
-            - name: find the other release branch
+            - name: 🔍 Find the other release branch
               id: find_another_release_branch
               run: ./.github/scripts/find_another_release_branch01.sh
 
-            - name: Merge release branch into the other release branch
+            - name: 🛣️ Merge release branch into the other release branch
               if: steps.find_another_release_branch.outputs.branch_name != ''
               run: |
                   git checkout ${{ steps.find_another_release_branch.outputs.latest_branch_name }}
                   git merge --no-ff --no-edit release/${{ github.ref_name }}
                   git push
 
-            - name: Merge Release into Develop
+            - name: 🛣️ Merge Release into Develop
               run: |
                   git config --global user.email "github-actions[bot]@users.noreply.github.com"
                   git config --global user.name "github-actions[bot]"

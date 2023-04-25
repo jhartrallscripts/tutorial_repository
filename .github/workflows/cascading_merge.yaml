@@ -20,7 +20,7 @@ jobs:
                   git config --global user.email "jack.harter@allscrips.com"
                   git config --global user.name "jhartrallscripts"
 
-            - name: 🔍 Find the latest release branch 
+            - name: 🔬 Find the latest release branch 
               id: find_another_release_branch
               run: ./.github/scripts/find_latest_release_branch.sh
 

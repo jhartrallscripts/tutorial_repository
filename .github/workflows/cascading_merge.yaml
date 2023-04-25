@@ -4,8 +4,9 @@ on:
   push:
     branches:
       - "release/*"
+
 jobs:
-    Setup:
+    MergeForwardReleaseBranches:
         runs-on: ubuntu-latest
         steps:
             - name: 🛎️ Checkout code
@@ -18,15 +19,12 @@ jobs:
               run: |
                   git config --global user.email "jack.harter@allscrips.com"
                   git config --global user.name "jhartrallscripts"
-    Merge:
-        runs-on: ubuntu-latest
-        needs: Setup
-        steps:
+
             - name: 🔬 Find the latest release branch 
               id: find_another_release_branch
               run: ./.github/scripts/find_latest_release_branch.sh
 
-            - name: 🛣️ 🤠 Merge Release into Latest Release branch
+            - name: 🛣️ 🤠 Merge release branch into Latest Release branch
               run: |
                   git checkout ${{ steps.find_another_release_branch.outputs.latest_branch }}
                   git merge --no-ff --no-edit ${{ github.ref_name }}

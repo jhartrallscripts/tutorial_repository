@@ -6,7 +6,7 @@ on:
       - "release/*"
 
 jobs:
-    merge_forward:
+    MergeForwardReleaseBranches:
         runs-on: ubuntu-latest
         steps:
             - name: 🛎️ Checkout code

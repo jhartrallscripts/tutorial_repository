@@ -20,12 +20,11 @@ jobs:
                   git config --global user.email "jack.harter@allscrips.com"
                   git config --global user.name "jhartrallscripts"
 
-            - name: 🔍 Find another release branch, if it exists
+            - name: 🔍 Find the latest release branch
               id: find_another_release_branch
               run: ./.github/scripts/find_latest_release_branch.sh
 
             - name: 🛣️ 🤠 Merge release branch into the other release branch
-              if: steps.find_another_release_branch.outputs.latest_branch != ''
               run: |
                   git checkout ${{ steps.find_another_release_branch.outputs.latest_branch }}
                   git merge --no-ff --no-edit ${{ github.ref_name }}

@@ -22,7 +22,7 @@ jobs:
 
             - name: 🔍 Find another release branch, if it exists
               id: find_another_release_branch
-              run: ./.github/scripts/find_another_release_branch01.sh
+              run: ./.github/scripts/find_latest_release_branch.sh
 
             - name: 🛣️ 🤠 Merge release branch into the other release branch
               if: steps.find_another_release_branch.outputs.latest_branch != ''

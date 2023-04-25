@@ -15,12 +15,10 @@ echo "The current branch is $current_branch"
 # The date is expected to be in the format YYYY-MM-DD.
 branches=`git branch -r --sort=-committerdate | grep -E "origin/release/[0-9]{4}-[0-9]{2}-[0-9]{2}"`
 
-# sort the list of branches by date number in the branch name.
+# sort the list of branches by date number in the branch name and use that to extract the latest one.
 # The date is expected to be in the format YYYY-MM-DD.
-sorted_branches=`echo "$branches" | sort -r`
+latest_branch=`echo "$branches" | sort -r | head -n 1 | sed 's/origin\///g'`
 
-# Get the name of the latest release branch
-latest_branch=`echo "$sorted_branches" | head -n 1 | sed 's/origin\///g'`
 echo "The latest branch is $latest_branch"
 
 # Now that we have the latest branch, we set it to the output variable.

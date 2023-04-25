@@ -9,28 +9,28 @@ jobs:
     merge_forward:
         runs-on: ubuntu-latest
         steps:
-            - name: 🛎️ Checkout
+            - name: 🛎️ Checkout code
               uses: actions/checkout@v3
               with:
                   token: ${{ secrets.GITHUB_TOKEN }}
                   fetch-depth: 0
 
-            - name: 🆙 Setup git
+            - name: 🆙 Setup git user
               run: |
                   git config --global user.email "jack.harter@allscrips.com"
                   git config --global user.name "jhartrallscripts"
 
-            - name: 🔍 Find the latest release branch
+            - name: 🔍 Find the latest release branch 
               id: find_another_release_branch
               run: ./.github/scripts/find_latest_release_branch.sh
 
-            - name: 🛣️ 🤠 Merge release branch into the other release branch
+            - name: 🛣️ 🤠 Merge release branch into Latest Release branch
               run: |
                   git checkout ${{ steps.find_another_release_branch.outputs.latest_branch }}
                   git merge --no-ff --no-edit ${{ github.ref_name }}
                   git push
 
-            - name: 🛣️ 😎 Merge Release into Develop
+            - name: 🛣️ 😎 Merge Release into Develop Branch
               run: |
                   git checkout develop
                   git merge --no-ff --no-edit ${{ github.ref_name }}
